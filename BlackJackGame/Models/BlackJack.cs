@@ -101,7 +101,8 @@ namespace BlackJackGame.Models
             if (GameState != GameState.PlayerPlays)
                 throw new InvalidOperationException();
             AddCardToHand(PlayerHand, true);
-            AdjustGameState();
+            if (PlayerHand.Value > 21)
+                AdjustGameState();
         }
 
         public void PassToDealer()
