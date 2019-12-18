@@ -8,7 +8,10 @@ namespace BlackJackGame.Models
     {
         #region Properties
         public bool FaceUp { get; set; }
-        public int Value { get; }
+        public int Value 
+        { 
+            get { return FaceUp ? Math.Min(10, (int)FaceValue) : 0; }
+        }
         #endregion
 
         #region Constructors

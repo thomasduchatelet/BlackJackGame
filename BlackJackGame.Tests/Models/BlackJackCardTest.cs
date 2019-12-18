@@ -33,7 +33,7 @@ namespace BlackJackGame.Tests.Models {
         public void Value_CardFaceUp_GivesCorrectValue() {
             BlackJackCard card = new BlackJackCard(Suit.Hearts, FaceValue.King);
             card.TurnCard();
-            Assert.Equal(13, card.Value);
+            Assert.Equal(10, card.Value);
         }
 
         [Fact]
