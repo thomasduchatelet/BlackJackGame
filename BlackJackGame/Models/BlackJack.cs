@@ -39,7 +39,10 @@ namespace BlackJackGame.Models
             DealerHand = new Hand();
             PlayerHand = new Hand();
             Deal();
-            AdjustGameState(GameState.PlayerPlays);
+            if (PlayerHand.Value != 21)
+                GameState = GameState.PlayerPlays;
+            else
+                GameState = GameState.GameOver;
         }
         private void AddCardToHand(Hand hand, bool faceUp)
         {
@@ -95,10 +98,9 @@ namespace BlackJackGame.Models
 
         public void GivePlayerAnotherCard()
         {
-            if (GameState == GameState.PlayerPlays)
-                AddCardToHand(PlayerHand, true);
-            else
+            if (GameState != GameState.PlayerPlays)
                 throw new InvalidOperationException();
+            AddCardToHand(PlayerHand, true);
             AdjustGameState();
         }
 
