@@ -1,34 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BlackJackGame.Models
 {
     public class Hand
     {
         #region Fields
-        private IList<BlackJackCard> _cards;
+        private readonly IList<BlackJackCard> _cards;
         #endregion
 
         #region Properties
-        public IEnumerable<BlackJackCard> Cards { get; }
-        public int NrOfCards { get; }
-        public int Value { get; }
+        public IEnumerable<BlackJackCard> Cards { get { return _cards; } }
+        public int NrOfCards {
+            get { return _cards.Count; } }
+        public int Value { get { return CalculateValue(); } }
+        #endregion
+
+        #region Constructors
+        public Hand()
+        {
+            _cards = new List<BlackJackCard>();
+        }
         #endregion
 
         #region Methods
 
         private int CalculateValue()
         {
-            throw new NotImplementedException();
+            int value = 0;
+            int tempValue;
+            int nrOfAces = 0;
+            foreach (var c in Cards)
+            {
+                if (c.FaceValue != FaceValue.Ace)
+                    value += c.Value;
+                else if(c.FaceUp)
+                    nrOfAces++;
+            }
+
+            tempValue = value;
+
+            for (int i = 0; i < nrOfAces; i++)
+            {
+                if (value > 10)
+                    value++;
+                else
+                    value += 11;
+            }
+
+            if (value > 21)
+                value = tempValue + nrOfAces;
+
+            return value;
+
         }
         public void AddCard(BlackJackCard blackJackCard)
         {
-            throw new NotImplementedException();
+            _cards.Add(blackJackCard);
         }
 
         public void TurnAllCardsFaceUp()
         {
-            throw new NotImplementedException();
+            foreach (var c in Cards)
+                c.FaceUp = true;
         }
         #endregion
     }

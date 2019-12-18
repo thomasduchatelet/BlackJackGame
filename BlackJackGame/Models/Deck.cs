@@ -8,7 +8,7 @@ namespace BlackJackGame.Models
     public class Deck
     {
         #region Fields
-        private IList<BlackJackCard> _cards;
+        protected IList<BlackJackCard> _cards;
         private Random _random = new Random();
         #endregion
 
@@ -22,6 +22,7 @@ namespace BlackJackGame.Models
             Shuffle();
         }
         #endregion
+
         #region Methods
         public BlackJackCard Draw()
         {
